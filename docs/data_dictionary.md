@@ -34,13 +34,13 @@ One row per registered user (after cleaning). Grain: `user\_id`.
 
 | signup\_date | date | Day the user created a wallet account. Start of the funnel. | `YYYY-MM-DD` |
 
-| city | text | City the user registered from. | Mumbai, Delhi, Bengaluru, Hyderabad, Chennai, Pune, Kolkata, Ahmedabad, Jaipur, Lucknow, Indore. Blank = unknown. |
+| city | text | City the user registered from. | Mumbai, Delhi, Bengaluru, Hyderabad, Chennai, Pune, Kolkata, Ahmedabad, Jaipur, Lucknow, Indore. Blank in raw data; "Unknown" in clean data. |
 
 | device\_type | text | Platform used to sign up. | Android, iOS, Web |
 
 | acquisition\_channel | text | Marketing source that brought the user in. | Organic, Paid Social, Google Ads, Referral, Influencer, Offline Agent |
 
-| age\_band | text | Age group of the user. | 18-24, 25-34, 35-44, 45-54, 55+. Blank = unknown. |
+| age\_band | text | Age group of the user. | 18-24, 25-34, 35-44, 45-54, 55+. Blank in raw data; "Unknown" in clean data. |
 
 
 
@@ -156,3 +156,9 @@ One row per calendar day (2025-01-01 to 2026-12-31). Grain: `date`.
 
 \- \*\*Repeat transaction:\*\* a second SUCCESS transaction within 30 days of the first.
 
+
+## Changes after Week 2 cleaning (files in data/clean/)
+- users_clean.csv: 20,000 rows, one per user_id. Blank city and age_band are filled with "Unknown". All categories use the standard values listed above.
+- kyc_events_clean.csv: 16,792 rows. New column `has_date_issue` (1 = completion earlier than signup or start, 0 = fine). Exclude flagged rows when calculating time to approval.
+- transactions_clean.csv: 101,291 rows. Duplicate transaction_ids and TEST_USER accounts removed. New column `has_amount_issue` (1 = amount is zero or negative). Exclude flagged rows when counting successful transactions.
+- app_events and date_dimension are used as generated. Duplicate events and blank session_ids in app_events are handled in SQL (Week 3).
