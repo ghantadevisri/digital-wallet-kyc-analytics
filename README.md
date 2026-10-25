@@ -1,6 +1,5 @@
-# \# Digital Wallet KYC Funnel \& Retention Analytics
+#  Digital Wallet KYC Funnel \& Retention Analytics
 
-# 
 
 # Analysis of a digital-wallet user journey:
 
